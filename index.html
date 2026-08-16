@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -15,638 +16,639 @@
             -ms-user-select: none;
         }
 
-        body {
-            background-color: #050505;
-            background-image: linear-gradient(135deg, #ffccff 0%, #ffffff 50%, #f192f9 100%);
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23800020' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6.5 6.5h11v11h-11z'/><path d='M2 12h4'/><path d='M18 12h4'/><path d='M2 9v6'/><path d='M22 9v6'/></svg>"), auto;
-        }
+    body {
+        background-color: #050505;
+        background-image: linear-gradient(135deg, #ffccff 0%, #ffffff 50%, #f192f9 100%);
+        color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23800020' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6.5 6.5h11v11h-11z'/><path d='M2 12h4'/><path d='M18 12h4'/><path d='M2 9v6'/><path d='M22 9v6'/></svg>"), auto;
+    }
 
-        /* Lluvia de rayos y gotas */
-        #rain-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
+    /* Lluvia de rayos y gotas */
+    #rain-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
 
-        /* Contenedor Principal Estilo Teléfono / 80% Centrado */
-        .phone-container {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 450px;
-            width: 80%;
-            background: rgba(10, 10, 10, 0.92);
-            border: 2px solid #EABFBF;
-            border-radius: 35px;
-            box-shadow: 0 0 30px rgba(128, 0, 32, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.05);
-            overflow: hidden;
-            margin: 20px auto;
-            backdrop-filter: blur(10px);
-        }
+    /* Contenedor Principal Estilo Teléfono / 80% Centrado */
+    .phone-container {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 450px;
+        width: 80%;
+        background: rgba(10, 10, 10, 0.92);
+        border: 2px solid #EABFBF;
+        border-radius: 35px;
+        box-shadow: 0 0 30px rgba(128, 0, 32, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+        margin: 20px auto;
+        backdrop-filter: blur(10px);
+    }
 
-        /* Panel de Contraseña */
-        #auth-panel {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(5, 5, 5, 0.97);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            transition: opacity 0.5s ease;
-        }
+    /* Panel de Contraseña */
+    #auth-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(5, 5, 5, 0.97);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        transition: opacity 0.5s ease;
+    }
 
-        .auth-box {
-            background: rgba(20, 5, 8, 0.9);
-            border: 1px solid #EABFBF;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            width: 85%;
-            max-width: 320px;
-            box-shadow: 0 0 20px rgba(128, 0, 32, 0.4);
-        }
+    .auth-box {
+        background: rgba(20, 5, 8, 0.9);
+        border: 1px solid #EABFBF;
+        padding: 25px;
+        border-radius: 20px;
+        text-align: center;
+        width: 85%;
+        max-width: 320px;
+        box-shadow: 0 0 20px rgba(128, 0, 32, 0.4);
+    }
 
-        .auth-welcome {
-            font-size: 11px;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            opacity: 0.8;
-        }
+    .auth-welcome {
+        font-size: 11px;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+        opacity: 0.8;
+    }
 
-        .auth-title {
-            font-size: 28px;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ffffff, #EABFBF, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            text-shadow: 0 5px 15px rgba(128, 0, 32, 0.6);
-            animation: waveText 3s ease-in-out infinite;
-        }
+    .auth-title {
+        font-size: 28px;
+        font-weight: 900;
+        background: linear-gradient(45deg, #ffffff, #EABFBF, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 15px;
+        text-shadow: 0 5px 15px rgba(128, 0, 32, 0.6);
+        animation: waveText 3s ease-in-out infinite;
+    }
 
-        @keyframes waveText {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-3px) rotate(1deg); }
-        }
+    @keyframes waveText {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-3px) rotate(1deg); }
+    }
 
-        .auth-msg-label {
-            font-size: 12px;
-            color: #e0e0e0;
-            margin-bottom: 12px;
-            font-family: 'Georgia', serif;
-            font-style: italic;
-        }
+    .auth-msg-label {
+        font-size: 12px;
+        color: #e0e0e0;
+        margin-bottom: 12px;
+        font-family: 'Georgia', serif;
+        font-style: italic;
+    }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
+    .input-group {
+        position: relative;
+        margin-bottom: 15px;
+    }
 
-        .auth-input {
-            width: 100%;
-            padding: 10px 35px 10px 15px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #EABFBF;
-            border-radius: 10px;
-            color: #ffffff;
-            font-size: 16px;
-            text-align: center;
-            letter-spacing: 3px;
-            outline: none;
-        }
+    .auth-input {
+        width: 100%;
+        padding: 10px 35px 10px 15px;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid #EABFBF;
+        border-radius: 10px;
+        color: #ffffff;
+        font-size: 16px;
+        text-align: center;
+        letter-spacing: 3px;
+        outline: none;
+    }
 
-        .auth-input:focus {
-            border-color: #ffffff;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
+    .auth-input:focus {
+        border-color: #ffffff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
 
-        .eye-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #EABFBF;
-            font-size: 16px;
-        }
+    .eye-icon {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #EABFBF;
+        font-size: 16px;
+    }
 
-        .eye-icon:hover {
-            color: #ffffff;
-        }
+    .eye-icon:hover {
+        color: #ffffff;
+    }
 
-        .auth-btn {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, #EABFBF, #EABFBF);
-            border: 1px solid #ffffff;
-            color: #ffffff;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 1px;
-        }
+    .auth-btn {
+        width: 100%;
+        padding: 10px;
+        background: linear-gradient(135deg, #EABFBF, #EABFBF);
+        border: 1px solid #ffffff;
+        color: #ffffff;
+        font-weight: bold;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
 
-        .auth-btn:hover {
-            background: linear-gradient(135deg, #ffffff, #EABFBF);
-            color: #000000;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
+    .auth-btn:hover {
+        background: linear-gradient(135deg, #ffffff, #EABFBF);
+        color: #000000;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
 
-        .auth-error {
-            color: #ff4d4d;
-            font-size: 11px;
-            margin-top: 8px;
-            display: none;
-        }
+    .auth-error {
+        color: #ff4d4d;
+        font-size: 11px;
+        margin-top: 8px;
+        display: none;
+    }
 
-        /* Cabecera del Reloj y Fecha */
-        .top-bar {
-            padding: 8px 15px;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 10px;
-            border-bottom: 1px solid rgba(128, 0, 32, 0.3);
-            color: #b0b0b0;
-        }
+    /* Cabecera del Reloj y Fecha */
+    .top-bar {
+        padding: 8px 15px;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 10px;
+        border-bottom: 1px solid rgba(128, 0, 32, 0.3);
+        color: #b0b0b0;
+    }
 
-        /* Perfil Estilo Instagram Exacto */
-        .insta-profile {
-            padding: 15px;
-        }
+    /* Perfil Estilo Instagram Exacto */
+    .insta-profile {
+        padding: 15px;
+    }
 
-        .insta-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
+    .insta-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
 
-        .avatar-container {
-            position: relative;
-            width: 85px;
-            height: 85px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .avatar-container {
+        position: relative;
+        width: 85px;
+        height: 85px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        /* Círculo Animado de Puntos y Parpadeo */
-        .avatar-container::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px dashed #EABFBF;
-            animation: rotateCircle 8s linear infinite;
-        }
+    /* Círculo Animado de Puntos y Parpadeo */
+    .avatar-container::before {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px dashed #EABFBF;
+        animation: rotateCircle 8s linear infinite;
+    }
 
-        .avatar-container::after {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            border-radius: 50%;
-            border: 2px dotted #ffffff;
-            animation: rotateCircleRev 12s linear infinite;
-        }
+    .avatar-container::after {
+        content: '';
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        border: 2px dotted #ffffff;
+        animation: rotateCircleRev 12s linear infinite;
+    }
 
-        @keyframes rotateCircle {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    @keyframes rotateCircle {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
-        @keyframes rotateCircleRev {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(-360deg); }
-        }
+    @keyframes rotateCircleRev {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(-360deg); }
+    }
 
-        .avatar-img {
-            width: 75px;
-            height: 75px;
-            border-radius: 50%;
-            object-fit: cover;
-            position: relative;
-            z-index: 2;
-            animation: blinkAvatar 2s ease-in-out infinite;
-            border: 2px solid #000;
-        }
+    .avatar-img {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        object-fit: cover;
+        position: relative;
+        z-index: 2;
+        animation: blinkAvatar 2s ease-in-out infinite;
+        border: 2px solid #000;
+    }
 
-        @keyframes blinkAvatar {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.3) drop-shadow(0 0 5px #fff); }
-        }
+    @keyframes blinkAvatar {
+        0%, 100% { filter: brightness(1); }
+        50% { filter: brightness(1.3) drop-shadow(0 0 5px #fff); }
+    }
 
-        .insta-stats {
-            display: flex;
-            justify-content: space-around;
-            flex-grow: 1;
-            margin-left: 15px;
-            text-align: center;
-        }
+    .insta-stats {
+        display: flex;
+        justify-content: space-around;
+        flex-grow: 1;
+        margin-left: 15px;
+        text-align: center;
+    }
 
-        .stat-item .stat-num {
-            font-size: 15px;
-            font-weight: bold;
-            color: #ffffff;
-        }
+    .stat-item .stat-num {
+        font-size: 15px;
+        font-weight: bold;
+        color: #ffffff;
+    }
 
-        .stat-item .stat-label {
-            font-size: 11px;
-            color: #a0a0a0;
-        }
+    .stat-item .stat-label {
+        font-size: 11px;
+        color: #a0a0a0;
+    }
 
-        .insta-bio {
-            margin-bottom: 15px;
-            font-size: 13px;
-            line-height: 1.4;
-        }
+    .insta-bio {
+        margin-bottom: 15px;
+        font-size: 13px;
+        line-height: 1.4;
+    }
 
-        .username-row {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
+    .username-row {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
 
-        .verified-badge {
-            width: 14px;
-            height: 14px;
-            background: #3897f0;
-            border-radius: 50%;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 9px;
-        }
+    .verified-badge {
+        width: 14px;
+        height: 14px;
+        background: #3897f0;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-size: 9px;
+    }
 
-        .bio-text {
-            color: #dfdfdf;
-        }
+    .bio-text {
+        color: #dfdfdf;
+    }
 
-        /* Botones de Perfil */
-        .profile-actions {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
+    /* Botones de Perfil */
+    .profile-actions {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
 
-        .action-btn {
-            flex: 1;
-            padding: 7px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(128, 0, 32, 0.6);
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            transition: background 0.2s;
-        }
+    .action-btn {
+        flex: 1;
+        padding: 7px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(128, 0, 32, 0.6);
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+        transition: background 0.2s;
+    }
 
-        .action-btn:hover {
-            background: rgba(128, 0, 32, 0.3);
-        }
+    .action-btn:hover {
+        background: rgba(128, 0, 32, 0.3);
+    }
 
-        .logout-btn {
-            background: rgba(128, 0, 32, 0.4);
-            border-color: #EABFBF;
-        }
+    .logout-btn {
+        background: rgba(128, 0, 32, 0.4);
+        border-color: #EABFBF;
+    }
 
-        .logout-btn:hover {
-            background: rgba(128, 0, 32, 0.8);
-        }
+    .logout-btn:hover {
+        background: rgba(128, 0, 32, 0.8);
+    }
 
-        /* Cuadrícula de Fotos Estilo Instagram */
-        .insta-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 15px;
-        }
+    /* Cuadrícula de Fotos Estilo Instagram */
+    .insta-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 15px;
+    }
 
-        .grid-item {
-            aspect-ratio: 1;
-            position: relative;
-            overflow: hidden;
-            background: #111;
-        }
+    .grid-item {
+        aspect-ratio: 1;
+        position: relative;
+        overflow: hidden;
+        background: #111;
+    }
 
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            pointer-events: none; /* Bloquear interacciones directas */
-        }
+    .grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        pointer-events: none; /* Bloquear interacciones directas */
+    }
 
-        .grid-item:hover img {
-            transform: scale(1.05);
-        }
+    .grid-item:hover img {
+        transform: scale(1.05);
+    }
 
-        /* Pie de Página */
-        .footer-credit {
-            text-align: center;
-            padding: 10px;
-            font-size: 11px;
-            color: #ffffff;
-            border-top: 1px solid rgba(128, 0, 32, 0.3);
-            background: rgba(0, 0, 0, 0.4);
-            letter-spacing: 0.5px;
-        }
+    /* Pie de Página */
+    .footer-credit {
+        text-align: center;
+        padding: 10px;
+        font-size: 11px;
+        color: #ffffff;
+        border-top: 1px solid rgba(128, 0, 32, 0.3);
+        background: rgba(0, 0, 0, 0.4);
+        letter-spacing: 0.5px;
+    }
 
-        .footer-credit span {
-            color: #9b59b6;
-            font-family: 'Brush Script MT', cursive, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(155, 89, 182, 0.6);
-        }
+    .footer-credit span {
+        color: #9b59b6;
+        font-family: 'Brush Script MT', cursive, sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        text-shadow: 0 0 5px rgba(155, 89, 182, 0.6);
+    }
 
-        /* Protección Anti Capturas / Marcas de Agua Ocultas de Seguridad */
-        .watermark-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            display: flex;
-            flex-wrap: wrap;
-            overflow: hidden;
-            opacity: 0.03;
-            z-index: 50;
-        }
+    /* Protección Anti Capturas / Marcas de Agua Ocultas de Seguridad */
+    .watermark-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+        opacity: 0.03;
+        z-index: 50;
+    }
 
-        .watermark-text {
-            font-size: 10px;
-            color: #fff;
-            transform: rotate(-30deg);
-            padding: 20px;
-            white-space: nowrap;
-        }
-    </style>
+    .watermark-text {
+        font-size: 10px;
+        color: #fff;
+        transform: rotate(-30deg);
+        padding: 20px;
+        white-space: nowrap;
+    }
+</style>
+
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- Lluvia y Rayos de Fondo -->
-    <canvas id="rain-canvas"></canvas>
+<!-- Lluvia y Rayos de Fondo -->
+<canvas id="rain-canvas"></canvas>
 
-    <!-- Marca de agua de protección repetida varias veces contra capturas -->
-    <div class="watermark-overlay" id="watermark-container"></div>
+<!-- Marca de agua de protección repetida varias veces contra capturas -->
+<div class="watermark-overlay" id="watermark-container"></div>
 
-    <div class="phone-container">
-        
-        <!-- Panel de Contraseña de Acceso -->
-        <div id="auth-panel">
-            <div class="auth-box">
-                <div class="auth-welcome">Bienvenido</div>
-                <div class="auth-title">Khay</div>
-                <div class="auth-msg-label">Contraseña 6969</div>
-                <div class="input-group">
-                    <input type="password" id="password-input" class="auth-input" maxlength="6" placeholder="••••">
-                    <span class="eye-icon" id="toggle-password">&#129065;</span>
-                </div>
-                <button class="auth-btn" id="login-btn">Entrar</button>
-                <div class="auth-error" id="auth-error">Contraseña incorrecta (4050)</div>
+<div class="phone-container">
+    
+    <!-- Panel de Contraseña de Acceso -->
+    <div id="auth-panel">
+        <div class="auth-box">
+            <div class="auth-welcome">Bienvenido</div>
+            <div class="auth-title">Khay</div>
+            <div class="auth-msg-label">Contraseña 6969</div>
+            <div class="input-group">
+                <input type="password" id="password-input" class="auth-input" maxlength="6" placeholder="••••">
+                <span class="eye-icon" id="toggle-password">&#129065;</span>
             </div>
+            <button class="auth-btn" id="login-btn">Entrar</button>
+            <div class="auth-error" id="auth-error">Contraseña incorrecta (4050)</div>
         </div>
-
-        <!-- Barra Superior (Hora VET y Día) -->
-        <div class="top-bar">
-            <span id="current-date">Viernes, 14 Ago 2026</span>
-            <span id="current-time">10:22:20 VET (UTC-4)</span>
-        </div>
-
-        <!-- Perfil Estilo Instagram -->
-        <div class="insta-profile">
-            <div class="insta-header">
-                <div class="avatar-container">
-                    <img src="https://xatimg.com/image/WL3tGfbWB3mB.jpg" alt="Avatar Khay" class="avatar-img" id="profile-avatar">
-                </div>
-                <div class="insta-stats">
-                    <div class="stat-item">
-                        <div class="stat-num">1,450</div>
-                        <div class="stat-label">Publicaciones</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num">69.9K</div>
-                        <div class="stat-label">Seguidores</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num">310</div>
-                        <div class="stat-label">Siguiendo</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="insta-bio">
-                <div class="username-row">
-                    <span>Khay</span>
-                    <span class="verified-badge">&#10003;</span>
-                </div>
-                <div class="bio-text">
-                    Khay <br>
-                    Confía en Los tiempos del proceso. Una cosa a la vez, un día a la vez 🌸 | Nacionalidad 🇲🇽
-                </div>
-            </div>
-
-            <div class="profile-actions">
-                <button class="action-btn">Siguiendo</button>
-                <button class="action-btn">Mensaje</button>
-                <button class="action-btn logout-btn" id="logout-btn">Cerrar Sesión</button>
-            </div>
-        </div>
-
-        <!-- Cuadrícula de Fotos (9 Imágenes Solicitadas) -->
-        <div class="insta-grid" id="photo-grid">
-            <div class="grid-item"><img src="https://xatimg.com/image/HVQ89dxuu358.jpg" alt="Gym Photo"></div>
-            <div class="grid-item"><img src="https://xatimg.com/image/BR7wDipXb9ax.jpg" alt="Gym Photo"></div>
-            <div class="grid-item"><img src="https://xatimg.com/image/QzfA1fPa8C97.jpg" alt="Gym Photo"></div>
-            <div class="grid-item"><img src="https://xatimg.com/image/Gb1zOXo6rc1j.jpg" alt="Gym Photo"></div>
-            <div class="grid-item"><img src="https://xatimg.com/image/nW00oEfrrAg9.jpg" alt="Gym Photo"></div>
-            <div class="grid-item"><img src="https://xatimg.com/image/kn9BRv1thZEo.jpg" alt="Gym Photo"></div>
-            <div class="grid-item"><img src="https://xatimg.com/image/18XZatNnw5HU.jpg" alt="Gym Photo"></div>
-            <div class="grid-item"><img src="https://xatimg.com/image/RJwAxs4WWpw5.jpg" alt="Gym Photo"></div>
-            <div class="grid-item"><img src="https://xatimg.com/image/tfPTZsbTVxgM.jpg" alt="Gym Photo"></div>
-        </div>
-
-        <!-- Pie de Página -->
-        <div class="footer-credit">
-             <span></span>
-        </div>
-
     </div>
 
-    <script>
-        // Rellenar marcas de agua repetidas varias veces de fondo contra capturas
-        const wmContainer = document.getElementById('watermark-container');
-        for (let i = 0; i < 40; i++) {
-            const span = document.createElement('div');
-            span.className = 'watermark-text';
-            span.innerText = 'KHAY';
-            wmContainer.appendChild(span);
-        }
+    <!-- Barra Superior (Hora VET y Día) -->
+    <div class="top-bar">
+        <span id="current-date">Viernes, 14 Ago 2026</span>
+        <span id="current-time">10:22:20 VET (UTC-4)</span>
+    </div>
 
-        // Lógica de Contraseña
-        const authPanel = document.getElementById('auth-panel');
-        const passwordInput = document.getElementById('password-input');
-        const loginBtn = document.getElementById('login-btn');
-        const authError = document.getElementById('auth-error');
-        const togglePassword = document.getElementById('toggle-password');
-        const logoutBtn = document.getElementById('logout-btn');
+    <!-- Perfil Estilo Instagram -->
+    <div class="insta-profile">
+        <div class="insta-header">
+            <div class="avatar-container">
+                <img src="https://xatimg.com/image/WL3tGfbWB3mB.jpg" alt="Avatar Khay" class="avatar-img" id="profile-avatar">
+            </div>
+            <div class="insta-stats">
+                <div class="stat-item">
+                    <div class="stat-num">1,450</div>
+                    <div class="stat-label">Publicaciones</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">69.9K</div>
+                    <div class="stat-label">Seguidores</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">310</div>
+                    <div class="stat-label">Siguiendo</div>
+                </div>
+            </div>
+        </div>
 
-        function checkPassword() {
-            if (passwordInput.value === '6969') {
-                authPanel.style.opacity = '0';
-                setTimeout(() => {
-                    authPanel.style.display = 'none';
-                }, 500);
-                authError.style.display = 'none';
-            } else {
-                authError.style.display = 'block';
-                passwordInput.value = '';
-            }
-        }
+        <div class="insta-bio">
+            <div class="username-row">
+                <span>Khay</span>
+                <span class="verified-badge">&#10003;</span>
+            </div>
+            <div class="bio-text">
+                Khay <br>
+                Confía en Los tiempos del proceso. Una cosa a la vez, un día a la vez 🌸 | Nacionalidad 🇲🇽
+            </div>
+        </div>
 
-        loginBtn.addEventListener('click', checkPassword);
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkPassword();
-        });
+        <div class="profile-actions">
+            <button class="action-btn">Siguiendo</button>
+            <button class="action-btn">Mensaje</button>
+            <button class="action-btn logout-btn" id="logout-btn">Cerrar Sesión</button>
+        </div>
+    </div>
 
-        togglePassword.addEventListener('click', () => {
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                togglePassword.innerHTML = '&#128064;';
-            } else {
-                passwordInput.type = 'password';
-                togglePassword.innerHTML = '&#128065;';
-            }
-        });
+    <!-- Cuadrícula de Fotos (9 Imágenes Solicitadas) -->
+    <div class="insta-grid" id="photo-grid">
+        <div class="grid-item"><img src="https://xatimg.com/image/HVQ89dxuu358.jpg" alt="Gym Photo"></div>
+        <div class="grid-item"><img src="https://xatimg.com/image/BR7wDipXb9ax.jpg" alt="Gym Photo"></div>
+        <div class="grid-item"><img src="https://xatimg.com/image/QzfA1fPa8C97.jpg" alt="Gym Photo"></div>
+        <div class="grid-item"><img src="https://xatimg.com/image/Gb1zOXo6rc1j.jpg" alt="Gym Photo"></div>
+        <div class="grid-item"><img src="https://xatimg.com/image/nW00oEfrrAg9.jpg" alt="Gym Photo"></div>
+        <div class="grid-item"><img src="https://xatimg.com/image/kn9BRv1thZEo.jpg" alt="Gym Photo"></div>
+        <div class="grid-item"><img src="https://xatimg.com/image/18XZatNnw5HU.jpg" alt="Gym Photo"></div>
+        <div class="grid-item"><img src="https://xatimg.com/image/RJwAxs4WWpw5.jpg" alt="Gym Photo"></div>
+        <div class="grid-item"><img src="https://xatimg.com/image/tfPTZsbTVxgM.jpg" alt="Gym Photo"></div>
+    </div>
 
-        logoutBtn.addEventListener('click', () => {
-            passwordInput.value = '';
-            authPanel.style.display = 'flex';
+    <!-- Pie de Página -->
+    <div class="footer-credit">
+         <span></span>
+    </div>
+
+</div>
+
+<script>
+    // Rellenar marcas de agua repetidas varias veces de fondo contra capturas
+    const wmContainer = document.getElementById('watermark-container');
+    for (let i = 0; i < 40; i++) {
+        const span = document.createElement('div');
+        span.className = 'watermark-text';
+        span.innerText = 'KHAY';
+        wmContainer.appendChild(span);
+    }
+
+    // Lógica de Contraseña
+    const authPanel = document.getElementById('auth-panel');
+    const passwordInput = document.getElementById('password-input');
+    const loginBtn = document.getElementById('login-btn');
+    const authError = document.getElementById('auth-error');
+    const togglePassword = document.getElementById('toggle-password');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    function checkPassword() {
+        if (passwordInput.value === '6969') {
+            authPanel.style.opacity = '0';
             setTimeout(() => {
-                authPanel.style.opacity = '1';
-            }, 10);
+                authPanel.style.display = 'none';
+            }, 500);
+            authError.style.display = 'none';
+        } else {
+            authError.style.display = 'block';
+            passwordInput.value = '';
+        }
+    }
+
+    loginBtn.addEventListener('click', checkPassword);
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkPassword();
+    });
+
+    togglePassword.addEventListener('click', () => {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            togglePassword.innerHTML = '&#128064;';
+        } else {
+            passwordInput.type = 'password';
+            togglePassword.innerHTML = '&#128065;';
+        }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+        passwordInput.value = '';
+        authPanel.style.display = 'flex';
+        setTimeout(() => {
+            authPanel.style.opacity = '1';
+        }, 10);
+    });
+
+    // Reloj Dinámico con Hora VET (UTC-4)
+    function updateClock() {
+        const now = new Date();
+        // Ajuste estricto UTC-4 (Venezuela)
+        const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+        const vetTime = new Date(utc + (3600000 * -4));
+
+        const optionsDate = { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'America/Caracas' };
+        const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'America/Caracas' };
+
+        document.getElementById('current-date').innerText = vetTime.toLocaleDateString('es-ES', optionsDate);
+        document.getElementById('current-time').innerText = vetTime.toLocaleTimeString('es-ES', optionsTime) + ' VET (UTC-4)';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Canvas de Lluvia y Rayos (Blanco y Vinotinto)
+    const canvas = document.getElementById('rain-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const raindrops = [];
+    const numDrops = 100;
+
+    for (let i = 0; i < numDrops; i++) {
+        raindrops.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            length: Math.random() * 20 + 10,
+            speed: Math.random() * 8 + 4,
+            color: Math.random() > 0.4 ? 'rgba(255, 255, 255, 0.4)' : 'rgba(128, 0, 32, 0.6)'
         });
+    }
 
-        // Reloj Dinámico con Hora VET (UTC-4)
-        function updateClock() {
-            const now = new Date();
-            // Ajuste estricto UTC-4 (Venezuela)
-            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-            const vetTime = new Date(utc + (3600000 * -4));
+    let lightningTimer = 0;
 
-            const optionsDate = { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'America/Caracas' };
-            const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'America/Caracas' };
+    function animateRain() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            document.getElementById('current-date').innerText = vetTime.toLocaleDateString('es-ES', optionsDate);
-            document.getElementById('current-time').innerText = vetTime.toLocaleTimeString('es-ES', optionsTime) + ' VET (UTC-4)';
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // Canvas de Lluvia y Rayos (Blanco y Vinotinto)
-        const canvas = document.getElementById('rain-canvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        const raindrops = [];
-        const numDrops = 100;
-
-        for (let i = 0; i < numDrops; i++) {
-            raindrops.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                length: Math.random() * 20 + 10,
-                speed: Math.random() * 8 + 4,
-                color: Math.random() > 0.4 ? 'rgba(255, 255, 255, 0.4)' : 'rgba(128, 0, 32, 0.6)'
-            });
+        // Efecto de Rayo intermitente ocasional
+        lightningTimer++;
+        if (lightningTimer > 180 && Math.random() < 0.05) {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            lightningTimer = 0;
         }
 
-        let lightningTimer = 0;
+        // Dibujar Lluvia
+        for (let drop of raindrops) {
+            ctx.beginPath();
+            ctx.strokeStyle = drop.color;
+            ctx.lineWidth = 1.5;
+            ctx.moveTo(drop.x, drop.y);
+            ctx.lineTo(drop.x - 1, drop.y + drop.length);
+            ctx.stroke();
 
-        function animateRain() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drop.y += drop.speed;
+            drop.x -= 0.5;
 
-            // Efecto de Rayo intermitente ocasional
-            lightningTimer++;
-            if (lightningTimer > 180 && Math.random() < 0.05) {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                lightningTimer = 0;
+            if (drop.y > canvas.height) {
+                drop.y = -20;
+                drop.x = Math.random() * canvas.width;
             }
-
-            // Dibujar Lluvia
-            for (let drop of raindrops) {
-                ctx.beginPath();
-                ctx.strokeStyle = drop.color;
-                ctx.lineWidth = 1.5;
-                ctx.moveTo(drop.x, drop.y);
-                ctx.lineTo(drop.x - 1, drop.y + drop.length);
-                ctx.stroke();
-
-                drop.y += drop.speed;
-                drop.x -= 0.5;
-
-                if (drop.y > canvas.height) {
-                    drop.y = -20;
-                    drop.x = Math.random() * canvas.width;
-                }
-            }
-
-            requestAnimationFrame(animateRain);
         }
-        animateRain();
 
-        // Bloqueo total de descarga y guardado de imágenes mediante eventos tácticos
-        document.querySelectorAll('img').forEach(img => {
-            img.addEventListener('contextmenu', e => e.preventDefault());
-            img.addEventListener('dragstart', e => e.preventDefault());
-        });
+        requestAnimationFrame(animateRain);
+    }
+    animateRain();
 
-        document.addEventListener('keydown', e => {
-            if (e.ctrlKey && (e.key === 's' || e.key === 'u' || e.key === 'p' || e.key === 'i')) {
-                e.preventDefault();
-            }
-        });
-        </style>
-    </script>
+    // Bloqueo total de descarga y guardado de imágenes mediante eventos tácticos
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('contextmenu', e => e.preventDefault());
+        img.addEventListener('dragstart', e => e.preventDefault());
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.ctrlKey && (e.key === 's' || e.key === 'u' || e.key === 'p' || e.key === 'i')) {
+            e.preventDefault();
+        }
+    });
+</script>
+
 </body>
 </html>
