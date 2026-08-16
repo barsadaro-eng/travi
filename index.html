@@ -646,6 +646,27 @@
                 e.preventDefault();
             }
         });
+        </style>
+
+<div glenplayer01>
+    <div top-text>ARGENTINA ESTÁ LISTO</div>
+    <div bottom-text>LA CANCIÓN DEL MUNDIAL 2026 QUE TODOS CANTAN</div>
+    <audio id="music-id" src="https://www.dropbox.com/scl/fi/0nplbdkvsbw7q5ubug58z/ARGENTINA-EST-LISTO-LA-CANCI-N-DEL-MUNDIAL-2026-QUE-TODOS-CANTAN.mp3?rlkey=48s26ak719p19p1sv89ln5l69&st=zu16iit2&raw=1" preload="auto" loop></audio>
+</div> 
+
+<script>
+// Forzar el inicio al interactuar con el perfil
+function iniciarMusica() {
+    var audio = document.getElementById("music-id");
+    audio.play().catch(function(error) {
+        console.log("El navegador bloqueó el autoplay, esperando clic.");
+    });
+}
+
+// Esto intenta arrancar la música apenas el usuario mueva el mouse o haga un clic
+window.addEventListener('mouseover', iniciarMusica, { once: true });
+window.addEventListener('click', iniciarMusica, { once: true });
+window.addEventListener('touchstart', iniciarMusica, { once: true });
     </script>
 </body>
 </html>
