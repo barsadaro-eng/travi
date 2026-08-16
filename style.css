@@ -9,7 +9,7 @@
 }
 
 body {
-	background-color: #050505;
+	background-color: #ffccff;
 	background-image: linear-gradient(135deg, #050505 0%, #120305 50%, #1a0006 100%);
 	color: #ffffff;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -38,7 +38,7 @@ body {
 	max-width: 450px;
 	width: 80%;
 	background: rgba(10, 10, 10, 0.92);
-	border: 2px solid #800020;
+	border: 2px solid #C11C84;
 	border-radius: 35px;
 	box-shadow: 0 0 30px rgba(128, 0, 32, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.05);
 	overflow: hidden;
@@ -64,7 +64,7 @@ body {
 
 .auth-box {
 	background: rgba(20, 5, 8, 0.9);
-	border: 1px solid #800020;
+	border: 1px solid #C11C84;
 	padding: 25px;
 	border-radius: 20px;
 	text-align: center;
@@ -85,7 +85,7 @@ body {
 .auth-title {
 	font-size: 28px;
 	font-weight: 900;
-	background: linear-gradient(45deg, #ffffff, #800020, #ffffff);
+	background: linear-gradient(45deg, #ffffff, #C11C84, #ffffff);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	margin-bottom: 15px;
@@ -121,7 +121,7 @@ body {
 	width: 100%;
 	padding: 10px 35px 10px 15px;
 	background: rgba(0, 0, 0, 0.6);
-	border: 1px solid #800020;
+	border: 1px solid #C11C84;
 	border-radius: 10px;
 	color: #ffffff;
 	font-size: 16px;
@@ -141,7 +141,7 @@ body {
 	top: 50%;
 	transform: translatey(-50%);
 	cursor: pointer;
-	color: #800020;
+	color: #C11C84;
 	font-size: 16px;
 }
 
@@ -152,7 +152,7 @@ body {
 .auth-btn {
 	width: 100%;
 	padding: 10px;
-	background: linear-gradient(135deg, #800020, #400010);
+	background: linear-gradient(135deg, #C11C84, #400010);
 	border: 1px solid #ffffff;
 	color: #ffffff;
 	font-weight: bold;
@@ -165,7 +165,7 @@ body {
 }
 
 .auth-btn:hover {
-	background: linear-gradient(135deg, #ffffff, #800020);
+	background: linear-gradient(135deg, #ffffff, #C11C84);
 	color: #000000;
 	box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
@@ -214,7 +214,7 @@ body {
 	position: absolute;
 	inset: -4px;
 	border-radius: 50%;
-	border: 2px dashed #800020;
+	border: 2px dashed #C11C84;
 	animation: rotateCircle 8s linear infinite;
 }
 
@@ -345,7 +345,7 @@ body {
 
 .logout-btn {
 	background: rgba(128, 0, 32, 0.4);
-	border-color: #800020;
+	border-color: #C11C84;
 }
 
 .logout-btn:hover {
